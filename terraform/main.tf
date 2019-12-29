@@ -1,6 +1,6 @@
 terraform {
   # Версия terraform
-  required_version = "0.12.18"
+  required_version = "0.12.8"
 }
 
 provider "google" {
@@ -25,7 +25,10 @@ resource "google_compute_instance" "app" {
   }
   metadata = {
     # путь до публичного ключа
-    ssh-keys = "appuser:${file(var.public_key_path)}"
+    ssh-keys = <<EOF
+    appuser:${file(var.public_key_path)}
+    appuser1:${file(var.public_key_path)}
+    EOF
   }
 
   network_interface {
