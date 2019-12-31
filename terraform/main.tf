@@ -14,7 +14,8 @@ provider "google" {
 }
 
 resource "google_compute_instance" "app" {
-  name         = "reddit-app"
+  count = var.count_inst
+  name         = "reddit-app${count.index + 1}"
   machine_type = "g1-small"
   zone         = var.zone
   tags         = ["reddit-app"]
@@ -23,13 +24,21 @@ resource "google_compute_instance" "app" {
       image = var.disk_image
     }
   }
+
   metadata = {
-    # путь до публичного ключа
-    ssh-keys = <<EOF
-    appuser:${file(var.public_key_path)}
-    appuser1:${file(var.public_key_path)}
-    EOF
+    ssh-keys = "appuser:${file(var.public_key_path)} \nappuser1:${file(var.public_key_path)} \nappuser2:${file(var.public_key_path)}"
   }
+
+  # metadata = {
+  #   ssh-keys = <<EOF
+  #   appuser:${file(var.public_key_path)}
+  #   appuser1:${file(var.public_key_path)}
+  #   EOF
+  # }
+
+ # metadata = {
+ #   ssh-keys = "appuser:${file("~/.ssh/appuser.pub")}"
+ # }
 
   network_interface {
     network = "default"
@@ -41,7 +50,8 @@ resource "google_compute_instance" "app" {
     user        = "appuser"
     host        = self.network_interface[0].access_config[0].nat_ip
     agent       = false
-    private_key = "${file(var.private_key_path)}"
+    #private_key = "${file(var.private_key_path)}"
+    private_key = file(var.private_key_path)
   }
 
   provisioner "file" {
