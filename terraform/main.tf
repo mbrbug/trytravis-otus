@@ -7,14 +7,12 @@ provider "google" {
   # Версия провайдера
   version = "2.15"
   # ID проекта
-  #project = "infra-262320"
-  #region = "europe-west-1"
   project = var.project
   region  = var.region
 }
 
 resource "google_compute_instance" "app" {
-  count = var.count_inst
+  count        = var.count_inst
   name         = "reddit-app${count.index + 1}"
   machine_type = "g1-small"
   zone         = var.zone
@@ -29,27 +27,16 @@ resource "google_compute_instance" "app" {
     ssh-keys = "appuser:${file(var.public_key_path)} \nappuser1:${file(var.public_key_path)} \nappuser2:${file(var.public_key_path)}"
   }
 
-  # metadata = {
-  #   ssh-keys = <<EOF
-  #   appuser:${file(var.public_key_path)}
-  #   appuser1:${file(var.public_key_path)}
-  #   EOF
-  # }
-
- # metadata = {
- #   ssh-keys = "appuser:${file("~/.ssh/appuser.pub")}"
- # }
-
   network_interface {
     network = "default"
     access_config {}
   }
 
   connection {
-    type        = "ssh"
-    user        = "appuser"
-    host        = self.network_interface[0].access_config[0].nat_ip
-    agent       = false
+    type  = "ssh"
+    user  = "appuser"
+    host  = self.network_interface[0].access_config[0].nat_ip
+    agent = false
     #private_key = "${file(var.private_key_path)}"
     private_key = file(var.private_key_path)
   }

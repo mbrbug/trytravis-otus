@@ -22,6 +22,6 @@ variable zone {
 }
 
 variable count_inst {
- description = "instances count"
- default = "1"
+  description = "instances count"
+  default     = "1"
 }
