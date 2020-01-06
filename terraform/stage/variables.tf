@@ -27,11 +27,16 @@ variable count_inst {
 }
 
 variable app_disk_image {
-description = "Disk image for reddit app"
-default = "reddit-app-base"
+  description = "Disk image for reddit app"
+  default     = "reddit-app-base"
 }
 
 variable db_disk_image {
-description = "Disk image for reddit db"
-default = "reddit-db-base"
+  description = "Disk image for reddit db"
+  default     = "reddit-db-base"
+}
+
+variable machine_type {
+  description = "default gcp machine type"
+  default     = "g1-small"
 }
