@@ -23,6 +23,6 @@ variable database_url {
   description = "database url"
 }
 
-#variable app_provisioner {
-# description = "turn on off puma provisioner"
-#}
+variable app_provisioner {
+  description = "turn on off puma provisioner"
+}

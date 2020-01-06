@@ -2,6 +2,8 @@
 mbrbug Infra repository
 
 ### №5 Знакомство с облачной инфраструктурой и облачными сервисами.
+<details>
+<summary>Знакомство с облачной инфраструктурой и облачными сервисам</summary>
 
 #### Создание виртуальных машин в GCP
 
@@ -37,8 +39,11 @@ RequestTTY force
 
 bastion_IP = 104.198.142.243
 someinternalhost_IP = 10.128.0.3
+</details>
 
 ### №6 Основные сервисы Google Cloud Platform (GCP).
+<details>
+<summary>Основные сервисы Google Cloud Platform (GCP).</summary>
 
 Цели занятия
 Способы управления ресурсами в GCP.
@@ -95,8 +100,11 @@ puma -d'
 #### firewall rule
 
 `gcloud compute firewall-rules create default-puma-server --allow tcp:9292 --target-tags 'puma-server' --source-ranges 0.0.0.0/0`
+</details>
 
 ### №7 Модели управления инфраструктурой Packer.
+<details>
+  <summary>Модели управления инфраструктурой Packer</summary>
 
 ##### Цели занятия
 Изучение packer. Команды, синтаксис, конфигурационные файлы.
@@ -187,10 +195,13 @@ gcloud compute instances create reddit-app \
 > --tags puma-server \
 > --restart-on-failure
  ```
+</details>
 
- ### №8 Практика IaC с использованием Terraform.
+### №8 Практика IaC с использованием Terraform.
+<details>
+  <summary>Практика IaC с использованием Terraform</summary>
 
- ##### Цели занятия
+##### Цели занятия
  Изучение Terraform. Команды, синтаксис, конфигурационные файлы.
  Скачиваем Terraform, распаковываем в путь из окружения PATH
  Создаем main.tf c провайдером google и ресурсами вида:
@@ -304,6 +315,7 @@ resource "google_compute_instance" "app" {
   count        = var.count_inst
   name         = "reddit-app${count.index + 1}"
 ```
+</details>
 
 ### №9 Принципы организации инфраструктурного кода и работа над инфраструктурой в команде на примере Terraform.
 
@@ -372,3 +384,25 @@ terraform {
   }
 }
 ```
+##### if statement in terraform
+ задаем переменную boolean в variables.tf модуля
+ ```
+ variable app_provisioner {
+  description = "turn on off puma provisioner"
+ }
+ ```
+ задаем значение переменной в main.tf root модуля
+ ```
+ module "app" {
+   ...
+   app_provisioner = true
+ }
+ ```
+ в main.tf модуля app задаем два идентичных ресурса с разными именами и различием в проверке переменной
+ ```
+ count = var.app_provisioner ? 0 : 1
+ ```
+ или
+ ```
+count = var.app_provisioner ? 0 : 1
+ ```
