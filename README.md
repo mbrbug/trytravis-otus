@@ -375,7 +375,7 @@ module "storage-bucket" {
   location    = "europe-west1"
 }
 ```
-##### Храрение стайт файла в бекенде
+##### Хранение стайт файла в бекенде
 ```
 terraform {
   backend "gcs" {
