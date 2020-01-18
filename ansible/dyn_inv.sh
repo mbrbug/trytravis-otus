@@ -6,10 +6,10 @@ db_ip=`cd ../terraform/stage && terraform output | grep db_external_ip | awk '{p
 if [ "$1" == "--list" ] ; then
 cat<<EOF
 {
-    "apps": {
+    "app": {
         "hosts": [$app_ip],
     },
-    "dbs": [$db_ip],
+    "db": [$db_ip],
 }
 EOF
 elif [ "$1" == "--host" ]; then
