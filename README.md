@@ -1,9 +1,14 @@
 # mbrbug_infra
 mbrbug Infra repository
 
-### Деплой и управлениеконфигурацией с Ansible
-
-
+### №11 Ansible: работа с ролями и окружениями
+##### Роли Ansible
+`ansible-galaxy init app`
+##### вызов роли в плейбуке
+```
+roles:
+- app
+```
 
 ### №10 Управление конфигурацией. Основные DevOps инструменты. Знакомство с Ansible
 
