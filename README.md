@@ -1,7 +1,7 @@
 # mbrbug_microservices
 mbrbug microservices repository
 
-### №14 Технология контейнеризации. Введение в Docker
+### №15 Технология контейнеризации. Введение в Docker
 ##### docker, docker-machine, docker-compose docker
 run, info, diff, ps, image, images, start, attach, stop, exec, create, commit kill, system df, rm, rmi, inspect `docker rm $(docker ps -a -q)`
 ##### docker-machine:
